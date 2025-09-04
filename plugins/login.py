@@ -1,6 +1,4 @@
 
----
-
 ## ✅ 6. Plugin: `plugins/login.py`
 
 ```python
