@@ -1,0 +1,25 @@
+/* style.css */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #001f3f;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+}
+.card {
+    background: #003366;
+    border: 1px solid #0074D9;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 12px;
+}
+.btn {
+    background: #FFD700;
+    color: #001f3f;
+    border: none;
+    padding: 12px 24px;
+    margin: 5px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
