@@ -1,0 +1,11 @@
+<!-- dashboard.html -->
+<div class="card">
+    <h2>📊 Dashboard</h2>
+    <p><b>Total Proyek:</b> {{ total }}</p>
+    <p><b>Total Profit:</b> Rp{{ profit|format }}</p>
+    <p><b>Rata-rata:</b> Rp{{ avg|format }}</p>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width:{{ avg_progress }}%">{{ avg_progress }}%</div>
+    </div>
+    <p><b>Rata-rata Progres:</b> {{ avg_progress }}%</p>
+</div>
