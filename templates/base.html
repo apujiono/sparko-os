@@ -5,14 +5,15 @@
     <title>SPARKO-OS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/script.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>SPARKO-OS v55.2</h1>
+            <img src="/static/images/logo.png" alt="Logo SPARKO" width="100">
+            <h1>SPARKO-OS v57.0</h1>
             <p>Sistem Manajemen Proyek Cerdas & Profesional</p>
         </header>
-        <hr>
         <div class="nav">
             <button class="btn" onclick="location.href='/tim'">👥 Tim</button>
             <button class="btn" onclick="location.href='/proyek'">📥 Input Proyek</button>
@@ -21,13 +22,16 @@
             <button class="btn" onclick="location.href='/proposal'">📄 Proposal</button>
             <button class="btn" onclick="location.href='/klien'">👥 Klien</button>
             <button class="btn" onclick="location.href='/absensi'">📅 Absensi</button>
+            <button class="btn" onclick="location.href='/gaji'">💰 Gaji</button>
             <button class="btn" onclick="location.href='/chat'">💬 Chat</button>
             <button class="btn" onclick="location.href='/logout'">🔐 Logout</button>
         </div>
         <hr>
+        <div style="color:#aaa; margin:15px 0;">Halo, <b>{{ nama_user }}</b> | Role: {{ role }}</div>
+        <hr>
         {{ content|safe }}
         <footer>
-            SPARKO - Satu Percikan, Jutaan Energi | 0858-2780-8391
+            SPARKO - Satu Percikan, Jutaan Energi | 0858-2780-8391 | sparkoteam01@gmail.com
         </footer>
     </div>
 </body>
