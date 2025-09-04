@@ -1,11 +1,11 @@
 # main.py
-# 🔥 SPARKO-OS v56.0 - SISTEM MODULAR DENGAN PLUGIN
-# ✅ Auto-load plugin, SQLite, login, daftar user
+# 🔥 SPARKO-OS v57.0 - SISTEM MANAJEMEN PROYEK PALING LENGKAP
+# ✅ Plugin, AI, login, proyek baru, dashboard, notifikasi
 # "Satu Percikan, Jutaan Energi" - SPARKO Team
 
 import os
 import importlib
-from flask import Flask, session, redirect, url_for
+from flask import Flask, session, redirect, url_for, render_template_string
 import sqlite3
 
 app = Flask(__name__)
@@ -53,21 +53,30 @@ def init_db():
             pesan TEXT
         )
     ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS klien (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nama TEXT,
+            kontak TEXT,
+            kwp REAL,
+            lokasi TEXT,
+            tanggal TEXT
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS proyek_baru (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nama TEXT,
+            lokasi TEXT,
+            kwp REAL,
+            target TEXT
+        )
+    ''')
     conn.commit()
     conn.close()
 
 if not os.path.exists('database/sparko.db'):
     os.makedirs('database', exist_ok=True)
-
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS proyek_baru (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nama TEXT,
-        lokasi TEXT,
-        kwp REAL,
-        target TEXT
-    )
-''')
     init_db()
 
 # =============== 2. AUTO-LOAD PLUGIN ===============
@@ -96,7 +105,7 @@ def register():
 
 @app.before_request
 def require_login():
-    if request.endpoint in ['login', 'register']:
+    if request.endpoint in ['login', 'register', 'static']:
         return
     if 'user_id' not in session:
         return redirect('/login')
@@ -119,9 +128,6 @@ def index():
         <a href="/logout">🔐 Logout</a>
     </div>
     '''
-@app.route('/proyek_baru')
-def proyek_baru():
-    return '<h2>Proyek Baru akan diintegrasikan oleh plugin</h2>'
 
 # =============== 5. LOAD PLUGIN & JALANKAN ===============
 load_plugins()
