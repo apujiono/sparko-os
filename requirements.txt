@@ -1,2 +1,5 @@
 flask
 fpdf
+sqlite3
+requests
+gunicorn
