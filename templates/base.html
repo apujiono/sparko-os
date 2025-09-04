@@ -1,0 +1,34 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SPARKO-OS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SPARKO-OS v55.2</h1>
+            <p>Sistem Manajemen Proyek Cerdas & Profesional</p>
+        </header>
+        <hr>
+        <div class="nav">
+            <button class="btn" onclick="location.href='/tim'">👥 Tim</button>
+            <button class="btn" onclick="location.href='/proyek'">📥 Input Proyek</button>
+            <button class="btn" onclick="location.href='/dashboard'">📊 Dashboard</button>
+            <button class="btn" onclick="location.href='/ai'">🤖 AI</button>
+            <button class="btn" onclick="location.href='/proposal'">📄 Proposal</button>
+            <button class="btn" onclick="location.href='/klien'">👥 Klien</button>
+            <button class="btn" onclick="location.href='/absensi'">📅 Absensi</button>
+            <button class="btn" onclick="location.href='/chat'">💬 Chat</button>
+            <button class="btn" onclick="location.href='/logout'">🔐 Logout</button>
+        </div>
+        <hr>
+        {{ content|safe }}
+        <footer>
+            SPARKO - Satu Percikan, Jutaan Energi | 0858-2780-8391
+        </footer>
+    </div>
+</body>
+</html>
