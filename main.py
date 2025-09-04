@@ -1,5 +1,5 @@
 # main.py
-# 🔥 SPARKO-OS v55.2 - SISTEM MODULAR DENGAN PLUGIN
+# 🔥 SPARKO-OS v56.0 - SISTEM MODULAR DENGAN PLUGIN
 # ✅ Auto-load plugin, SQLite, login, daftar user
 # "Satu Percikan, Jutaan Energi" - SPARKO Team
 
