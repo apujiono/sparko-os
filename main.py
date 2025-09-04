@@ -59,7 +59,15 @@ def init_db():
 if not os.path.exists('database/sparko.db'):
     os.makedirs('database', exist_ok=True)
     init_db()
-
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS proyek_baru (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nama TEXT,
+        lokasi TEXT,
+        kwp REAL,
+        target TEXT
+    )
+''')
 # =============== 2. AUTO-LOAD PLUGIN ===============
 def load_plugins():
     plugin_dir = 'plugins'
