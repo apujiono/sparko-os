@@ -1,4 +1,4 @@
-<!-- base.html -->
+<!-- templates/base.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,11 +24,11 @@
             <button class="btn" onclick="location.href='/absensi'">📅 Absensi</button>
             <button class="btn" onclick="location.href='/gaji'">💰 Gaji</button>
             <button class="btn" onclick="location.href='/chat'">💬 Chat</button>
-<button class="btn" onclick="location.href='/proyek_baru'">🎯 Proyek Baru</button>
+            <button class="btn" onclick="location.href='/proyek_baru'">🎯 Proyek Baru</button>
             <button class="btn" onclick="location.href='/logout'">🔐 Logout</button>
         </div>
         <hr>
-        <div style="color:#aaa; margin:15px 0;">Halo, <b>{{ nama_user }}</b> | Role: {{ role }}</div>
+        <div style="color:#aaa; margin:15px 0;">Halo, <b>{{ session.nama }}</b> | Role: {{ session.role }}</div>
         <hr>
         {{ content|safe }}
         <footer>
