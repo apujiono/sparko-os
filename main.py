@@ -119,6 +119,9 @@ def index():
         <a href="/logout">🔐 Logout</a>
     </div>
     '''
+@app.route('/proyek_baru')
+def proyek_baru():
+    return '<h2>Proyek Baru akan diintegrasikan oleh plugin</h2>'
 
 # =============== 5. LOAD PLUGIN & JALANKAN ===============
 load_plugins()
