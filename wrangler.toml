@@ -1,0 +1,24 @@
+name = "sparko-os-core"
+main = "worker/sparko-core.worker.js"
+compatibility_date = "2023-12-01"
+
+# Binding untuk database D1
+[[d1_databases]]
+binding = "DB"
+database_name = "SPARKO_DB"
+database_id = "" # Isi setelah membuat database di Cloudflare Dashboard
+
+# Binding untuk storage R2
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "sparko-archive"
+
+# Environment variables
+[vars]
+QWEN_API_KEY = "" # Isi dari DashScope Console
+TELEGRAM_TOKEN = "" # Isi dari BotFather
+ADMIN_CHAT_ID = "" # ID chat Telegram Anda
+
+# Cron trigger untuk backup harian
+[triggers]
+crons = ["0 2 * * *"] # Setiap jam 2 pagi
