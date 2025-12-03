@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPARKO OS - Quantum Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Header dengan Jam Realtime -->
+    <header>
+      <h1>SPARKO OS <span class="quantum">QUANTUM</span></h1>
+      <div id="realtime-clock" class="clock">Loading time...</div>
+      <div id="weather-status" class="weather">Loading weather...</div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main>
+      <!-- Modul AI Core -->
+      <section class="module">
+        <h2>🧠 AI Core "Moriarty"</h2>
+        <div class="input-group">
+          <textarea id="ai-input" placeholder="Analisis foto site survey atau dokumen teknis..."></textarea>
+          <div class="file-dropzone" id="dropzone">
+            <p>Drag & drop file foto/dokumen di sini</p>
+            <input type="file" id="file-upload" hidden>
+          </div>
+          <button id="analyze-btn">Analisis dengan AI</button>
+        </div>
+        <div id="ai-result" class="result-box"></div>
+      </section>
+
+      <!-- Modul Proposal Generator -->
+      <section class="module">
+        <h2>📄 Proposal Generator</h2>
+        <div class="input-group">
+          <input type="text" id="client-name" placeholder="Nama Klien">
+          <select id="project-type">
+            <option value="plts">PLTS Gedung</option>
+            <option value="microgrid">Microgrid Desa</option>
+            <option value="solar-water">Solar Water Heater</option>
+          </select>
+          <input type="number" id="project-budget" placeholder="Budget (Rp)">
+          <div class="format-options">
+            <label><input type="radio" name="format" value="pdf" checked> PDF</label>
+            <label><input type="radio" name="format" value="docx"> DOCX</label>
+            <label><input type="radio" name="format" value="text"> Text</label>
+          </div>
+          <button id="generate-proposal">Generate Proposal</button>
+        </div>
+        <div id="proposal-preview" class="result-box"></div>
+      </section>
+
+      <!-- Quantum Memory -->
+      <section class="module">
+        <h2>💾 Quantum Memory</h2>
+        <div class="memory-controls">
+          <input type="text" id="memory-search" placeholder="Cari arsip...">
+          <button id="refresh-memory">Refresh</button>
+        </div>
+        <div id="memory-list" class="memory-list"></div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>SPARKO OS v3.1 | Quantum Memory Active | Last Backup: <span id="last-backup">-</span></p>
+    </footer>
+  </div>
+
+  <!-- Load semua modul (tanpa framework) -->
+  <script src="modules/clock.js"></script>
+  <script src="modules/weather.js"></script>
+  <script src="modules/ai-core.js"></script>
+  <script src="modules/file-analysis.js"></script>
+  <script src="modules/proposal.js"></script>
+  <script src="modules/file-upload.js"></script>
+  <script src="modules/memory.js"></script>
+  
+  <script>
+    // Inisialisasi dasbor
+    document.addEventListener('DOMContentLoaded', () => {
+      initRealtimeClock();
+      initWeatherMonitor();
+      initAIAnalysis();
+      initProposalGenerator();
+      initFileUpload();
+      loadQuantumMemory();
+    });
+  </script>
+</body>
+</html>
