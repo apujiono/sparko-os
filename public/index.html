@@ -18,46 +18,74 @@
     <!-- Konten Utama -->
     <main>
       <!-- Modul AI Core -->
-      <section class="module">
+      <section class="module" id="ai-core-module">
         <h2>🧠 AI Core "Moriarty"</h2>
         <div class="input-group">
-          <textarea id="ai-input" placeholder="Analisis foto site survey atau dokumen teknis..."></textarea>
-          <div class="file-dropzone" id="dropzone">
-            <p>Drag & drop file foto/dokumen di sini</p>
-            <input type="file" id="file-upload" hidden>
-          </div>
-          <button id="analyze-btn">Analisis dengan AI</button>
+          <textarea id="ai-input" placeholder="Analisis teks atau deskripsi proyek..."></textarea>
+          <button id="analyze-text-btn">Analisis Teks</button>
         </div>
         <div id="ai-result" class="result-box"></div>
       </section>
 
-      <!-- Modul Proposal Generator -->
-      <section class="module">
-        <h2>📄 Proposal Generator</h2>
+      <!-- Modul File Analysis -->
+      <section class="module" id="file-analysis-module">
+        <h2>🖼️ Analisis File & Foto</h2>
         <div class="input-group">
-          <input type="text" id="client-name" placeholder="Nama Klien">
-          <select id="project-type">
-            <option value="plts">PLTS Gedung</option>
-            <option value="microgrid">Microgrid Desa</option>
-            <option value="solar-water">Solar Water Heater</option>
-          </select>
-          <input type="number" id="project-budget" placeholder="Budget (Rp)">
-          <div class="format-options">
-            <label><input type="radio" name="format" value="pdf" checked> PDF</label>
-            <label><input type="radio" name="format" value="docx"> DOCX</label>
-            <label><input type="radio" name="format" value="text"> Text</label>
-          </div>
-          <button id="generate-proposal">Generate Proposal</button>
+          <input type="file" id="analysis-file" accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+          <textarea id="analysis-context" placeholder="Konteks analisis (misal: site survey PLTS)"></textarea>
+          <button id="analyze-file-btn">Analisis dengan AI</button>
         </div>
-        <div id="proposal-preview" class="result-box"></div>
+        <div id="file-analysis-preview" class="preview-container"></div>
+        <div id="file-analysis-result" class="result-box"></div>
+      </section>
+
+      <!-- Modul Proposal Generator -->
+      <section class="module" id="proposal-module">
+        <h2>📄 Proposal Generator</h2>
+        <form id="proposal-form">
+          <div class="input-group">
+            <input type="text" id="client-name" placeholder="Nama Klien" required>
+            <select id="project-type" required>
+              <option value="plts">PLTS Gedung</option>
+              <option value="microgrid">Microgrid Desa</option>
+              <option value="solar-water">Solar Water Heater</option>
+            </select>
+            <input type="number" id="project-budget" placeholder="Budget (Rp)" min="1000000">
+          </div>
+          
+          <div class="format-options">
+            <h3>Format Output:</h3>
+            <label><input type="radio" name="proposal-format" value="pdf" checked> PDF</label>
+            <label><input type="radio" name="proposal-format" value="docx"> DOCX</label>
+            <label><input type="radio" name="proposal-format" value="text"> Text</label>
+          </div>
+          
+          <button type="submit" id="generate-proposal">Generate Proposal</button>
+        </form>
+        <div id="proposal-result" class="result-box"></div>
+      </section>
+
+      <!-- Modul File Upload -->
+      <section class="module" id="file-upload-module">
+        <h2>📁 Upload & Manajemen File</h2>
+        <div class="input-group">
+          <input type="file" id="file-upload-input" multiple>
+          <div class="metadata-input">
+            <input type="text" id="file-client" placeholder="Nama Klien">
+            <input type="text" id="file-project" placeholder="Nama Proyek">
+          </div>
+          <button id="upload-files-btn">Upload File</button>
+        </div>
+        <div id="upload-preview" class="preview-container"></div>
+        <div id="upload-result" class="result-box"></div>
       </section>
 
       <!-- Quantum Memory -->
-      <section class="module">
+      <section class="module" id="quantum-memory">
         <h2>💾 Quantum Memory</h2>
         <div class="memory-controls">
           <input type="text" id="memory-search" placeholder="Cari arsip...">
-          <button id="refresh-memory">Refresh</button>
+          <button id="refresh-memory">Refresh Data</button>
         </div>
         <div id="memory-list" class="memory-list"></div>
       </section>
@@ -65,7 +93,7 @@
 
     <!-- Footer -->
     <footer>
-      <p>SPARKO OS v3.1 | Quantum Memory Active | Last Backup: <span id="last-backup">-</span></p>
+      <p>SPARKO OS v3.2 | Quantum Memory Active | Last Backup: <span id="last-backup">-</span></p>
     </footer>
   </div>
 
@@ -83,11 +111,69 @@
     document.addEventListener('DOMContentLoaded', () => {
       initRealtimeClock();
       initWeatherMonitor();
-      initAIAnalysis();
-      initProposalGenerator();
-      initFileUpload();
+      
+      // Inisialisasi modul spesifik jika tersedia
+      if (typeof initAIAnalysis === 'function') initAIAnalysis();
+      if (typeof initFileAnalysis === 'function') initFileAnalysis();
+      if (typeof initProposalGenerator === 'function') initProposalGenerator();
+      if (typeof initFileUpload === 'function') initFileUpload();
       loadQuantumMemory();
+      
+      // Event listener tambahan
+      document.getElementById('analyze-text-btn')?.addEventListener('click', async () => {
+        const text = document.getElementById('ai-input').value.trim();
+        if (!text) return;
+        
+        const resultBox = document.getElementById('ai-result');
+        resultBox.innerHTML = '<div class="loading">🧠 Moriarty sedang menganalisis...</div>';
+        
+        try {
+          const response = await fetch('/worker/analyze-text', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text })
+          });
+          
+          const data = await response.json();
+          document.getElementById('ai-result').innerHTML = `
+            <div class="ai-alert">
+              <strong>🔍 Hasil Analisis Teks:</strong>
+              <p>${data.analysis}</p>
+            </div>
+          `;
+          
+          // Simpan ke memori
+          saveToQuantumMemory({
+            type: 'TEXT_ANALYSIS',
+            content: text,
+            timestamp: new Date().toISOString()
+          });
+          
+        } catch (error) {
+          resultBox.innerHTML = `<div class="ai-alert danger">❌ Error: ${error.message}</div>`;
+        }
+      });
     });
+    
+    // Fungsi helper global
+    function showAIAlert(message, type = 'info') {
+      const alertBox = document.createElement('div');
+      alertBox.className = `ai-alert ${type}`;
+      alertBox.innerHTML = message;
+      document.body.appendChild(alertBox);
+      
+      setTimeout(() => {
+        alertBox.remove();
+      }, 5000);
+    }
+    
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
   </script>
 </body>
 </html>
