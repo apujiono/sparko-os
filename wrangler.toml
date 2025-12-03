@@ -6,7 +6,7 @@ compatibility_date = "2023-12-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "SPARKO_DB"
-database_id = "" # Isi setelah membuat database di Cloudflare Dashboard
+database_id = "c121664d-7f60-4238-8f79-05215d315211" # Isi setelah membuat database di Cloudflare Dashboard
 
 # Binding untuk storage R2
 [[r2_buckets]]
