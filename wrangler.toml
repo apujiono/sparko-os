@@ -13,6 +13,21 @@ database_id = "" # Isi setelah membuat database di Cloudflare Dashboard
 binding = "R2_BUCKET"
 bucket_name = "sparko-archive"
 
+[[routes]]
+pattern = "*/worker/ai-analysis"
+zone_name = "yourdomain.com"
+worker = "ai-analysis.worker.js"
+
+[[routes]]
+pattern = "*/worker/proposal"
+zone_name = "yourdomain.com"
+worker = "proposal.worker.js"
+
+[[routes]]
+pattern = "*/worker/upload-file"
+zone_name = "yourdomain.com"
+worker = "storage.worker.js"
+
 # Environment variables
 [vars]
 QWEN_API_KEY = "" # Isi dari DashScope Console
